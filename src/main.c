@@ -20,7 +20,7 @@ int main(void){
     while (!WindowShouldClose()) {
         BeginDrawing();
             ClearBackground(BACKGROUND_COLOR);
-            DrawBrach(WIDTH/2, HEIGHT-100, 120, ang(0), 15);
+            DrawBrach(WIDTH/2, HEIGHT-100, 100, ang(0), 15);
         EndDrawing();
     }
 
@@ -35,6 +35,6 @@ void DrawBrach(float x, float y, float length, float angle, float thickness){
     float yend = y - length * cos(angle);
     Vector2 end = {xend, yend};
     DrawLineEx(start, end, thickness, BRANCH_COLOR);
-    DrawBrach(xend, yend, length*0.75, angle + ang(20), thickness*0.75);
-    DrawBrach(xend, yend, length*0.75, angle - ang(20), thickness*0.75);
+    DrawBrach(xend, yend, length*0.75, angle + ang(25), thickness*0.75);
+    DrawBrach(xend, yend, length*0.75, angle - ang(25), thickness*0.75);
 }
