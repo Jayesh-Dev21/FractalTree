@@ -55,7 +55,11 @@ jobs:
       - name: Verify binary produced
         run: |
           if [ -f bin/fractal_tree ]; then ls -l bin/fractal_tree; else echo "Binary not found"; fi
-
+      
+      - name: Rename binary
+        run: |
+          mv bin/fractal_tree bin/fractal_tree-${{ matrix.os }}
+     
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
