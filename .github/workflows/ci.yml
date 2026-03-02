@@ -22,7 +22,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential cmake pkg-config git \
-          libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev \
+          libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev \
           libgl1-mesa-dev libopenal-dev libasound2-dev libpulse-dev libudev-dev
       - name: Install dependencies (macOS)
         if: matrix.os == 'macos-latest'
@@ -34,8 +34,12 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           git clone --depth 1 https://github.com/raysan5/raylib.git raylib-src
+          rm -rf raylib-src/build
           mkdir -p raylib-src/build
-          cmake -S raylib-src -B raylib-src/build -DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=ON
+          cmake -S raylib-src -B raylib-src/build \
+          -DBUILD_EXAMPLES=OFF \
+          -DBUILD_SHARED_LIBS=ON \
+          -DCMAKE_BUILD_TYPE=Release
           cmake --build raylib-src/build -j
           sudo cmake --install raylib-src/build
 
