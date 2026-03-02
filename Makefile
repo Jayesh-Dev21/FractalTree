@@ -2,8 +2,8 @@ CC := gcc
 PKG_CONFIG := pkg-config
 
 # Compiler flags: use pkg-config to pick up raylib flags on the host
-CFLAGS := -Wall -g $(shell $(PKG_CONFIG) --cflags raylib)
-LDFLAGS := $(shell $(PKG_CONFIG) --libs raylib)
+CFLAGS := -Wall -lm -g $(shell $(PKG_CONFIG) --cflags raylib)
+LDFLAGS := $(shell $(PKG_CONFIG) --libs raylib) -lm
 
 SRC := src/main.c
 OBJ := $(SRC:.c=.o)

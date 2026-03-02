@@ -1,26 +1,40 @@
 // Minimal raylib starter template for FractalTree project.
 #include "raylib.h"
+#include <math.h>
 
-int main(void) {
-    const int screenWidth = 1200;
-    const int screenHeight = 900;
+#define WIDTH 600
+#define HEIGHT 800
 
-    InitWindow(screenWidth, screenHeight, "FractalTree - raylib template");
+#define BRANCH_COLOR RAYWHITE
+#define BACKGROUND_COLOR BLACK
+
+#define ang(x) x*DEG2RAD // convert angle to radians
+
+void DrawBrach(float x, float y, float length, float angle, float thickness);
+
+int main(void){
+
+    InitWindow(WIDTH, HEIGHT, "Fractal Tree");
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
         BeginDrawing();
-            ClearBackground(RED);
-
-            DrawText("Raylib template - replace with fractal code", 20, 20, 20, RED);
-
-            // Example placeholder: draw a simple circle at mouse position
-            Vector2 mouse = GetMousePosition();
-            DrawCircleV(mouse, 10.0f, MAROON);
-
+            ClearBackground(BACKGROUND_COLOR);
+            DrawBrach(WIDTH/2, HEIGHT-100, 120, ang(0), 15);
         EndDrawing();
     }
 
     CloseWindow();
     return 0;
+}
+
+void DrawBrach(float x, float y, float length, float angle, float thickness){
+    if(thickness*50 < 1) return;
+    Vector2 start = {x, y};
+    float xend = x + length * sin(angle);
+    float yend = y - length * cos(angle);
+    Vector2 end = {xend, yend};
+    DrawLineEx(start, end, thickness, BRANCH_COLOR);
+    DrawBrach(xend, yend, length*0.75, angle + ang(20), thickness*0.75);
+    DrawBrach(xend, yend, length*0.75, angle - ang(20), thickness*0.75);
 }
